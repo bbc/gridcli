@@ -39,14 +39,12 @@ builds:
       - hardfloat
       - softfloat
 brews:
-  -
-    tap:
+  - github:
       owner: fadhilijuma
       name: homebrew-grid
-    commit_author:
-      name: fadhilijuma
-      email: ffumwa@gmail.com
     folder: Formula
+    homepage: https://github.com/bbc/grid-rel
+    description: This application simplifies the deployment of Grid.
 archives:
   - format: tar.gz
       # if the OS is windows, we override and put everything in a .zip instead.
