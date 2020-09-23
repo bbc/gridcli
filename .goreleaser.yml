@@ -34,9 +34,9 @@ builds:
 brews:
   - github:
       owner: fadhilijuma
-      name: homebrew-gridconf
+      name: homebrew-grid-release
     folder: Formula
-    homepage: https://github.com/bbc/gridconf
+    homepage: https://github.com/bbc/grid-release
     description: This application simplifies the deployment of Grid.
 archives:
   - format: tar.gz
