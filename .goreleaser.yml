@@ -1,0 +1,82 @@
+# Make sure to check the documentation at http://goreleaser.com
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+    - go mod download
+    # you may remove this if you don't need go generate
+    - go generate ./...
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    main: ./main.go
+    binary: grid
+    ldflags:
+      - -s -w -X "main.goversion={{.Env.GOVERSION}}"
+    # GOARCH to build for.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Defaults are 386 and amd64.
+    goarch:
+      - amd64
+      - arm
+      - arm64
+
+    # GOARM to build for when GOARCH is arm.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Default is only 6.
+    goarm:
+      - 6
+      - 7
+
+    # GOMIPS and GOMIPS64 to build when GOARCH is mips, mips64, mipsle or mips64le.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Default is empty.
+    gomips:
+      - hardfloat
+      - softfloat
+brews:
+  -
+    tap:
+      owner: fadhilijuma
+      name: homebrew-grid
+    commit_author:
+      name: fadhilijuma
+      email: ffumwa@gmail.com
+    folder: Formula
+archives:
+  - format: tar.gz
+      # if the OS is windows, we override and put everything in a .zip instead.
+    format_overrides:
+      - goos: windows
+        format: zip
+    name_template: '{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}'
+    replacements:
+        amd64: 64bit
+        386: 32bit
+        arm: ARM
+        arm64: ARM64
+        darwin: macOS
+        linux: Linux
+        windows: Windows
+    files:
+      - Readme.MD
+      - LICENSE
+release:
+  prerelease: auto
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - 'README'
+      - Merge pull request
+      - Merge branch
