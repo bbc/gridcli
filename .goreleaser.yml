@@ -62,7 +62,6 @@ archives:
         windows: Windows
     files:
       - Readme.MD
-      - LICENSE
 release:
   prerelease: auto
 checksum:
