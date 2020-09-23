@@ -15,8 +15,6 @@ builds:
       - darwin
     main: ./main.go
     binary: grid
-    ldflags:
-      - -s -w -X "main.goversion={{.Env.GOVERSION}}"
     # GOARCH to build for.
     # For more info refer to: https://golang.org/doc/install/source#environment
     # Defaults are 386 and amd64.
