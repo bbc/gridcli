@@ -55,9 +55,9 @@ archives:
     replacements:
         amd64: 64bit
         386: 32bit
-        arm: ARM
         arm64: ARM64
         darwin: macOS
+        linux: Linux
         windows: Windows
     files:
       - Readme.MD
