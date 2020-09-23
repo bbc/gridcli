@@ -25,13 +25,6 @@ builds:
       - arm
       - arm64
 
-    # GOARM to build for when GOARCH is arm.
-    # For more info refer to: https://golang.org/doc/install/source#environment
-    # Default is only 6.
-    goarm:
-      - 6
-      - 7
-
     # GOMIPS and GOMIPS64 to build when GOARCH is mips, mips64, mipsle or mips64le.
     # For more info refer to: https://golang.org/doc/install/source#environment
     # Default is empty.
