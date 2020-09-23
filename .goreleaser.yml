@@ -33,7 +33,7 @@ builds:
       - softfloat
 brews:
   - github:
-      owner: fadhilijuma
+      owner: bbc
       name: homebrew-gridcli
     folder: Formula
     homepage: https://github.com/bbc/gridcli
