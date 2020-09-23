@@ -36,7 +36,7 @@ brews:
       owner: fadhilijuma
       name: homebrew-grid
     folder: Formula
-    homepage: https://github.com/bbc/grid-rel
+    homepage: https://github.com/bbc/grid
     description: This application simplifies the deployment of Grid.
 archives:
   - format: tar.gz
