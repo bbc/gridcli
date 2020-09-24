@@ -1,38 +1,38 @@
-project_name: gridconfig
+project_name: gridcli
 release:
   github:
     owner: bbc
-    name: gridconfig
+    name: gridcli
   name_template: '{{.Tag}}'
 milestones:
 - repo:
     owner: bbc
-    name: gridconfig
+    name: gridcli
   name_template: '{{ .Tag }}'
 brews:
-- name: gridconfig
+- name: gridcli
   tap:
     owner: bbc
-    name: homebrew-gridcli
+    name: homebrew-homebrew-gridcli
   commit_author:
     name: goreleaserbot
     email: goreleaser@carlosbecker.com
   folder: Formula
   install: bin.install "grid"
   description: This application simplifies the deployment of Grid.
-  homepage: https://github.com/bbc/gridcli
+  homepage: https://github.com/bbc/homebrew-gridcli
   goarm: "6"
   github:
     owner: bbc
-    name: homebrew-gridcli
+    name: homebrew-homebrew-gridcli
 scoop:
-  name: gridconfig
+  name: gridcli
   commit_author:
     name: goreleaserbot
     email: goreleaser@carlosbecker.com
   commit_msg_template: Scoop update for {{ .ProjectName }} version {{ .Tag }}
 builds:
-- id: gridconfig
+- id: gridcli
   goos:
   - linux
   - windows
@@ -64,7 +64,7 @@ builds:
 archives:
 - id: default
   builds:
-  - gridconfig
+  - gridcli
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
   format: tar.gz
   format_overrides:

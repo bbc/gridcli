@@ -32,7 +32,7 @@ builds:
 brews:
   - github:
       owner: bbc
-      name: homebrew-homebrew-gridcli
+      name: homebrew-gridcli
     folder: Formula
     homepage: https://github.com/bbc/homebrew-gridcli
     description: This application simplifies the deployment of Grid.
