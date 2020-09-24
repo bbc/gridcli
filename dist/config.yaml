@@ -1,0 +1,105 @@
+project_name: gridconfig
+release:
+  github:
+    owner: bbc
+    name: gridconfig
+  name_template: '{{.Tag}}'
+milestones:
+- repo:
+    owner: bbc
+    name: gridconfig
+  name_template: '{{ .Tag }}'
+brews:
+- name: gridconfig
+  tap:
+    owner: bbc
+    name: homebrew-gridcli
+  commit_author:
+    name: goreleaserbot
+    email: goreleaser@carlosbecker.com
+  folder: Formula
+  install: bin.install "grid"
+  description: This application simplifies the deployment of Grid.
+  homepage: https://github.com/bbc/gridcli
+  goarm: "6"
+  github:
+    owner: bbc
+    name: homebrew-gridcli
+scoop:
+  name: gridconfig
+  commit_author:
+    name: goreleaserbot
+    email: goreleaser@carlosbecker.com
+  commit_msg_template: Scoop update for {{ .ProjectName }} version {{ .Tag }}
+builds:
+- id: gridconfig
+  goos:
+  - linux
+  - windows
+  - darwin
+  goarch:
+  - amd64
+  - arm
+  - arm64
+  goarm:
+  - "6"
+  gomips:
+  - hardfloat
+  - softfloat
+  targets:
+  - linux_amd64
+  - linux_arm_6
+  - linux_arm64
+  - windows_amd64
+  - darwin_amd64
+  dir: .
+  main: ./main.go
+  ldflags:
+  - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser
+  binary: grid
+  env:
+  - CGO_ENABLED=0
+  lang: go
+  gobinary: go
+archives:
+- id: default
+  builds:
+  - gridconfig
+  name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+  format: tar.gz
+  format_overrides:
+  - goos: windows
+    format: zip
+  files:
+  - Readme.MD
+snapshot:
+  name_template: '{{ .Tag }}-SNAPSHOT-{{ .ShortCommit }}'
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+changelog:
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+    - README
+    - Merge pull request
+    - Merge branch
+  sort: asc
+dist: dist
+env_files:
+  github_token: ~/.config/goreleaser/github_token
+  gitlab_token: ~/.config/goreleaser/gitlab_token
+  gitea_token: ~/.config/goreleaser/gitea_token
+before:
+  hooks:
+  - go mod tidy
+  - go mod download
+  - go generate ./...
+source:
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz
+github_urls:
+  download: https://github.com
+gitlab_urls:
+  download: https://gitlab.com
