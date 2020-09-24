@@ -13,7 +13,7 @@ brews:
 - name: gridcli
   tap:
     owner: bbc
-    name: homebrew-homebrew-gridcli
+    name: homebrew-gridcli
   commit_author:
     name: goreleaserbot
     email: goreleaser@carlosbecker.com
@@ -24,7 +24,7 @@ brews:
   goarm: "6"
   github:
     owner: bbc
-    name: homebrew-homebrew-gridcli
+    name: homebrew-gridcli
 scoop:
   name: gridcli
   commit_author:
