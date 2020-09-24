@@ -1,4 +1,4 @@
-# gridconfig
+# GridCLI
 
 This is a golang CLI application that will enable the configuration, deployment and running of Grid in local and cloud
 environments. 
