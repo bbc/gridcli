@@ -25,7 +25,7 @@ import (
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Configures the Grid runtime dependencies",
-	Long: `Configures the Grid runtime dependencies listed on dep.yml file.`,
+	Long: `Configures the Grid runtime dependencies listed on .env file.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("config called")
 	},
@@ -33,7 +33,7 @@ var configCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(configCmd)
-
+	configCmd.PersistentFlags().String("help", "", "Used to set up runtime env. Must set --env flag [local,AWS,GCP].")
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command

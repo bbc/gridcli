@@ -17,10 +17,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/spf13/cobra"
+
 	"github.com/spf13/viper"
 )
 
@@ -60,22 +60,18 @@ func initConfig() {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
 
-		// Search config in home directory with name ".gitconfig" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".gitconfig")
+		// Search config in current directory with name ".yml" (without extension).
+		viper.AddConfigPath(".")
+		viper.SetConfigName(".dep")
+		viper.SetConfigType("yaml")
 	}
-
-	viper.AutomaticEnv() // read in environment variables that match
-
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; ignore error if desired
+		} else {
+			// Config file was found but another error was produced
+		}
 	}
 }
