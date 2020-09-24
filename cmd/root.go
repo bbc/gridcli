@@ -20,13 +20,10 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-
-	"github.com/spf13/viper"
 )
 
-var cfgFile string
 
-// rootCmd represents the base command when called without any subcommands
+// rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
 	Use:   "grid",
 	Short: "A Grid automation tool",
@@ -43,35 +40,5 @@ func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
-	}
-}
-
-func init() {
-	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "env", "", "The environment to configure grid (required)")
-	if err := rootCmd.MarkFlagRequired("env"); err != nil {
-		fmt.Println(err)
-	}
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-
-		// Search config in current directory with name ".yml" (without extension).
-		viper.AddConfigPath(".")
-		viper.SetConfigName(".dep")
-		viper.SetConfigType("yaml")
-	}
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			// Config file not found; ignore error if desired
-		} else {
-			// Config file was found but another error was produced
-		}
 	}
 }

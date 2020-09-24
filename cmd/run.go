@@ -25,7 +25,7 @@ import (
 var runCmd = &cobra.Command{
 	Use:   "run",
 	Short: "Runs the Grid application",
-	Long: `Runs the Grid application on the environment specified by the --env flag [local,AWS,GCP].`,
+	Long: `Runs the Grid application on the environment specified by the --env flag [docker,local,AWS,GCP].`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("run called")
 	},

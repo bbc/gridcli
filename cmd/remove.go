@@ -25,7 +25,7 @@ import (
 var removeCmd = &cobra.Command{
 	Use:   "remove",
 	Short: "Deletes Grid environment",
-	Long: `Deletes Grid installation on the specified --env flag [local,AWS,GCP].`,
+	Long: `Deletes Grid installation on the specified --env flag [docker,local,AWS,GCP].`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("remove called")
 	},

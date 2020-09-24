@@ -25,7 +25,7 @@ import (
 var deployCmd = &cobra.Command{
 	Use:   "deploy",
 	Short: "Deploys Grid",
-	Long: `Deploys Grid on the environment specified in the --env flag [local,AWS,GCP].`,
+	Long: `Deploys Grid on the environment specified in the --env flag [docker,local,AWS,GCP].`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("deploy called")
 	},
