@@ -32,9 +32,9 @@ builds:
 brews:
   - github:
       owner: bbc
-      name: homebrew-gridcli
+      name: homebrew-homebrew-gridcli
     folder: Formula
-    homepage: https://github.com/bbc/gridcli
+    homepage: https://github.com/bbc/homebrew-gridcli
     description: This application simplifies the deployment of Grid.
 archives:
   - format: tar.gz
