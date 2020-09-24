@@ -15,8 +15,18 @@ limitations under the License.
 */
 package main
 
-import "github.com/gridconfig/cmd"
+import (
+	"log"
+
+	"github.com/joho/godotenv"
+
+	"github.com/gridcli/cmd"
+)
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	cmd.Execute()
 }

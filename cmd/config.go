@@ -25,7 +25,7 @@ import (
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Configures the Grid runtime dependencies",
-	Long: `Configures the Grid runtime dependencies listed on dependencies.yml file.`,
+	Long: `Configures the Grid runtime dependencies listed on dep.yml file.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("config called")
 	},
