@@ -16,11 +16,12 @@ limitations under the License.
 package cmd
 
 import (
-	"context"
 	"fmt"
 	"os/exec"
+	"runtime"
 	"time"
 
+	"github.com/briandowns/spinner"
 	"github.com/spf13/cobra"
 )
 
@@ -29,33 +30,27 @@ const (
 	Failed  = "\u2717"
 )
 
+var env string
+
 // configCmd represents the config command
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Configures the Grid runtime dependencies",
 	Long:  `Configures the Grid runtime dependencies listed on .env file.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
-		defer cancel()
-
-		envFlag, er := cmd.PersistentFlags().GetString("env")
-		if er != nil {
-			b := installBrewLocally(ctx)
-			if b {
-				fmt.Printf("\t%s\t Successfully installed brew Brewfile", Success)
-			} else {
-				fmt.Printf("\t%s\t Failed installing brew Brewfile", Failed)
-
-			}
-		}
-		switch envFlag {
+		switch env {
 		case "docker":
-			fmt.Println("selected docker")
-			fmt.Printf("\t%s\t Successfully installed in Docker", Success)
-
+			fmt.Println("selected AWS")
+			fmt.Printf("\t%s\t Successfully installed in AWS\n", Success)
 		case "aws":
 			fmt.Println("selected AWS")
-			fmt.Printf("\t%s\t Successfully installed in AWS", Success)
+			fmt.Printf("\t%s\t Successfully installed in AWS\n", Success)
+		default:
+			s := spinner.New(spinner.CharSets[4], 100*time.Millisecond)  // Build our new spinner
+			s.Suffix = "configuring local environment..."
+			s.Start()
+			selectGOOS()
+			s.Stop()
 
 		}
 
@@ -64,9 +59,7 @@ var configCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(configCmd)
-	configCmd.PersistentFlags().String("help", "", "Used to set up runtime env. Must set --env flag [local,AWS,GCP]. Default is [local].")
-	configCmd.PersistentFlags().String("env", "", "Set environment flag [docker,local,AWS,GCP]. Default is [local].")
-	// Here you will define your flags and configuration settings.
+	configCmd.Flags().StringVarP(&env, "env", "e", "", "The deployment environment [local,AWS,GCP]. Default is [local].") // Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
@@ -77,11 +70,31 @@ func init() {
 	// configCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-//checkIfPresent know how to check if brew exists in the local environment
-func installBrewLocally(ctx context.Context) bool {
-	b, er := exec.CommandContext(ctx, "brew", "bundle", "&&", "brew install").Output()
-	if er != nil || len(b) == 0 {
-		return false
+//installBrewLocally know how install brewfile.
+func installBrewLocally() ([]byte, error) {
+	out, er := exec.Command("brew", "bundle").Output()
+	if er != nil {
+		return nil, er
 	}
-	return true
+	return out, nil
+}
+
+//selectGOOS knows how to configure to a specific operating system.
+func selectGOOS() {
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		out, er := installBrewLocally()
+		if er != nil {
+			fmt.Printf("\t%s\t Failed configuraring grid local environment: %s bug: %s\n", Failed, out, er)
+		} else {
+			fmt.Printf("\t%s\t %s\n", Success, out)
+
+		}
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		// freebsd, openbsd,
+		// plan9, windows...
+		fmt.Printf("%s.\n", os)
+	}
 }
