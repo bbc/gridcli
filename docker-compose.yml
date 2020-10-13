@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  elasticsearch:
+    image: elasticsearch:7.5.2
+    volumes:
+      - "./dev/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+    ports:
+      - "9200:9200"
+  imgops:
+    build:
+      context: cmd/dev/imgops
+    ports:
+      - "9008:80"
+    volumes:
+      - "./dev/imgops/nginx.conf:/etc/nginx/nginx.conf"
+  cerebro:
+    image: lmenezes/cerebro
+    ports:
+      - "9090:9000"
+  localstack:
+    image: localstack/localstack:0.11.0
+    ports:
+      - "4566:4566" # localstack's service proxy endpoint
+      - "4572:4572" # localstack's direct S3 endpoint, needed for image and image-origin buckets (see nginx-mappings.yml)
+    expose:
+      - 4572 # provide the imgops container with access to localstack's direct S3 endpoint
+    environment:
+      SERVICES: cloudformation,cloudwatch,dynamodb,kinesis,s3,sns,sqs
+      DEFAULT_REGION: eu-west-1
+      KINESIS_ERROR_PROBABILITY: 0.0
+      DATA_DIR: /tmp/localstack/data
+    volumes:
+      - './dev/.localstack:/tmp/localstack'
+  oidc-provider:
+    build:
+      context: cmd/dev/oidc-provider
+    ports:
+      - "9014:9014"
+    volumes:
+      - "./dev/config/users.json:/etc/gu/users.json"
+    env_file: cmd/dev/.env

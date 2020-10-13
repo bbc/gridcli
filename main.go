@@ -20,5 +20,29 @@ import (
 )
 
 func main() {
+	//if wd, err := os.Getwd(); err != nil {
+	//	fmt.Println("error pop",err)
+	//}else{
+	//	cmd := exec.Command("/bin/sh", "-c", "cat .nvmrc")
+	//	cmd.Dir = wd
+	//	cmd.Stdout = os.Stdout
+	//	cmd.Stderr = os.Stderr
+	//	if err := cmd.Run(); err != nil {
+	//		fmt.Println("error 2",er)
+	//	}
+	//}
+	//path, err := exec.LookPath("nvm")
+	//if err != nil {
+	//	fmt.Println("we found an error", err)
+	//} else {
+	//	fmt.Println("GOT", path)
+	//}
+	//cmd.RunAndSetup()
+	//cmd := exec.Command("/bin/sh", "-c", "./dev-setup/dev-configure.sh")
+	//cmd.Stdout = os.Stdout
+	//cmd.Stderr = os.Stderr
+	//if err := cmd.Run(); err != nil {
+	//	fmt.Println(err)
+	//}
 	cmd.Execute()
 }

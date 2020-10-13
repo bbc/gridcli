@@ -1,0 +1,24 @@
+name: grid
+domain-root: example.com
+mappings:
+  - prefix: api
+    port: 9001
+  - prefix: loader
+    port: 9003
+    client_max_body_size: 20m
+  - prefix:
+    port: 9005
+  - prefix: cropper
+    port: 9006
+  - prefix: metadata
+    port: 9007
+  - prefix: imgops
+    port: 9008
+  - prefix: usage
+    port: 9009
+  - prefix: collections
+    port: 9010
+  - prefix: auth
+    port: 9011
+  - prefix: leases
+    port: 9012
